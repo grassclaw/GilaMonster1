@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+    <title>Travel Guide</title>
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/Icon.png">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+        crossorigin="anonymous">
+    <!-- Custom styles for this template -->
+    <link href="assets/style.css" rel="stylesheet">
+</head>
+
+<!-- BODY -->
+
+<body class="bg-light">
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
+        <a class="navbar-brand navbar-nav mr-auto" href="#">RUMBA Quest</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarsExample02">
+            <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#"></a>
+                </li>
+            </ul>
+            <form class="form-inline my-1 my-md-0">
+                <input id="destinationInput" class="form-control" type="text" placeholder="Enter Your Destination">
+                <a id="destinationSubmit" href="#">
+                    <img class="ml-2" src="assets/images/searchicon.png">
+                </a>
+            </form>
+        </div>
+    </nav>
+    <!-- buttons/links -->
+    <div class="nav-scroller bg-light box-shadow">
+        <nav class="nav nav-underline ">
+            <a class="nav-link " href="#">Airbnb</a>
+            <a class="nav-link" href="#">Places to eat </a>
+            <a class="nav-link" href="#">Language</a>
+            <a class="nav-link" href="#">Weather</a>
+
+        </nav>
+    </div>
+
+    <div class="container">
+        <div class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+                Plan Your Trip!
+            </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+
+            <form class="dropdown-item">
+                <div class="form-row">
+                    <div class="form-group col-md-5">
+                        <label for="depart-input">Depart</label>
+                        <input type="text" class="form-control" id="depart-input" placeholder="Departure">
+                    </div>
+                    <div class="form-group col-md-5">
+                        <label for="depart-date-input">Depart Date</label>
+                        <input type="date" class="form-control" id="depart-date-input" placeholder="date depart input">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-5">
+                        <label for="arrival-input">Arrival</label>
+                        <input type="text" class="form-control" id="arrival-input" placeholder="Arrival">
+                    </div>
+                    <div class="form-group col-md-5">
+                        <label for="arrival-date-input">Depart Date</label>
+                        <input type="date" class="form-control" id="arrival-date-input" placeholder="date depart input">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+            </div>
+        </div>
+
+        <main role="main">
+            <div class="col-sm-8 mx-auto mt-1">
+                <h2 class=" mx-auto" id="destinationTitle">Destination</h2>
+            </div>
+            <div class="jumbotron mt-3">
+                <div class="col-sm-8 mx-auto">
+                    <h1>Lorem Ipsum</h1>
+                    <p>Input from destination search goes here. Default view input to be discussed. Whatever user selects to
+                        view lands here... the choices fed from global navigation. However one category should be offered
+                        as a defult upon selection of destination in the search engine. This is not styled.
+                        <code>.ipsum</code>. </p>
+                    <p>I used zomato widget so we can see how widgets behave. It is not responsive. I think using API and code
+                        will give us more control. we can style it how we like it. That is if we have time. </p>
+                    <div class="widget_wrap" style="width:800px;height:800px;display:inline-block;">
+                        <iframe src="https://www.zomato.com/widgets/all_collections.php?city_id=280&language_id=1&theme=red&widgetType=custom" style="position:relative;width:100%;height:100%;"
+                            border="0" frameborder="0"></iframe>
+                    </div>
+                    <p>
+                        <a class="btn alert-success" href="#" role="button">Lorem Ipsum</a>
+                    </p>
+                </div>
+            </div>
+        </main>
+    </div>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
