@@ -1,3 +1,12 @@
-.dropdown-menu{
-    width:60%;
+.nav-link {
+    color: white;
+    
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
 }
+
+.nav-link:hover {
+    color: gray;
+}
+
+
+

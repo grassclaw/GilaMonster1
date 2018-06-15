@@ -1,8 +1,19 @@
 // This is where the logic for the app will go.
+$("body").keypress(function (e) {
+  var key = e.which;
+  if(key == 13)  // the enter key code
+   {
+     $(".searchButton").click();
+     return false;  
+   }
+ });
 
 $(".searchButton").on("click", function () {
-
+ $("#thingie").css('visibility', 'visible')
   var inputCity = $("#destinationInput").val().trim();
+
+  $("#food-header").html("<h2>Dining Options in </h2>" + inputCity)
+
 
   // First AJAX call takes city from destinationInput...
   $.ajax({
@@ -37,12 +48,13 @@ $(".searchButton").on("click", function () {
       $(".foodInfo").empty();
 
       // lists all entries found (this can be bad if it's alot so I maxed it at 20)
-      for (var i = 0; i < response.restaurants.length || i < 20; i++) {
-        $(".foodInfo").append("<h3><a href='" + response.restaurants[i].restaurant.url + "'>" + response.restaurants[i].restaurant.name + "</a></h3>");
-        // <a class="nav-link " href="#">Hotels</a>
-        $(".foodInfo").append("<h5>Cusines: <span>" + response.restaurants[i].restaurant.cuisines + "</span></h5>");
-        $(".foodInfo").append("<h5>Rating: <span>" + response.restaurants[i].restaurant.user_rating.aggregate_rating + "</span></h5>");
-        $(".foodInfo").append("<h5>Address: <span>" + response.restaurants[i].restaurant.location.address + "</span></h5>");
+      for (var i = 0; i < response.restaurants.length || i < 10; i++) {
+        $("#food-info").addClass("card", "col-sm-6");
+        $("#food-info").append("<h3><a href='" + response.restaurants[i].restaurant.url + "'>" + response.restaurants[i].restaurant.name + "</a></h3>");
+        $("#food-info").append("<h5>Cusines: <span>" + response.restaurants[i].restaurant.cuisines + "</span></h5>");
+        $("#food-info").append("<h5>Rating: <span>" + response.restaurants[i].restaurant.user_rating.aggregate_rating + "</span></h5>");
+        $("#food-info").append("<h5>Address: <span>" + response.restaurants[i].restaurant.location.address + "</span></h5>");
+        
       }
 
     })
@@ -64,7 +76,8 @@ $(".searchButton").on("click", function () {
     var K_temp = response.main.temp;
     var F_temp = (9 * (K_temp - 273.15) / 5 + 32).toFixed(1);
 
-    $("#city").html("<h1>" + response.name + " Weather Details</h1>");
+    $("#weather").text((response.weather[0].description).toUpperCase());
+    $("#city").html("<h1>" + response.name + " Weather Details</h1>");    
     $("#wind").text("Wind Speed: " + response.wind.speed + " mph");
     $("#humidity").text("Humidity: " + response.main.humidity + " %");
     $("#temp").text("Temperature: " + F_temp + " °F");
