@@ -1,3 +1,4 @@
+
 .nav-link {
     color: white;
     
@@ -10,3 +11,12 @@
 
 
 
+
+.dropdown-menu{
+    width:60%;
+}
+
+#map-canvas {
+    width: 500px;
+    height: 500px;
+  }
