@@ -13,6 +13,8 @@
         crossorigin="anonymous">
     <!-- Custom styles for this template -->
     <link href="assets/style.css" rel="stylesheet">
+    <script src="https://widgets.skyscanner.net/widget-server/js/loader.js" async></script>
+
 </head>
 
 <!-- BODY -->
@@ -31,7 +33,7 @@
                 </li>
             </ul>
             <form class="form-inline my-1 my-md-0">
-                <input id="destinationInput" class="form-control" type="text" placeholder="Enter Your Destination">
+                <input id="destinationInput" class="form-control autocomplete" type="text" placeholder="Enter Your Destination">
                 <a id="destinationSubmit" href="#">
                     <img class="ml-2 searchButton" src="assets/images/searchicon.png">
                 </a>
@@ -57,27 +59,9 @@
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 
                 <form class="dropdown-item">
-                    <div class="form-row">
-                        <div class="form-group col-md-5">
-                            <label for="depart-input">Depart</label>
-                            <input type="text" class="form-control" id="depart-input" placeholder="Departure">
-                        </div>
-                        <div class="form-group col-md-5">
-                            <label for="depart-date-input">Depart Date</label>
-                            <input type="date" class="form-control" id="depart-date-input" placeholder="date depart input">
-                        </div>
+                    <div class="container" id="widget">
+                        <div data-skyscanner-widget="SearchWidget"></div>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-5">
-                            <label for="arrival-input">Arrival</label>
-                            <input type="text" class="form-control" id="arrival-input" placeholder="Arrival">
-                        </div>
-                        <div class="form-group col-md-5">
-                            <label for="arrival-date-input">Depart Date</label>
-                            <input type="date" class="form-control" id="arrival-date-input" placeholder="date depart input">
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Search</button>
                 </form>
             </div>
         </div>
@@ -93,7 +77,7 @@
                     <div class="foodInfo"></div>
                     <!-- <p>
                         <a class="btn alert-success" href="#" role="button">Lorem Ipsum</a> -->
-                        <!-- <button type="button" class="btn alert-success" data-toggle="modal" data-target="#exampleModalCenter">
+                    <!-- <button type="button" class="btn alert-success" data-toggle="modal" data-target="#exampleModalCenter">
                             Modal Window
                         </button> 
                     </p> -->
@@ -149,6 +133,8 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
             crossorigin="anonymous"></script>
         <script src="assets/app.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwWs33xLv8sSEN3rk6J3dexPWSelYkVVM&libraries=places&callback=initAutocomplete"
+        async defer></script>
 
 </body>
 
