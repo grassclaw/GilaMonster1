@@ -21,6 +21,8 @@
 <body class="bg-light">
     <nav class="navbar navbar-expand navbar-dark bg-dark">
         <a class="navbar-brand navbar-nav mr-auto" href="#">RUMBA Quest</a>
+        <a class="nav-link " href="#">Popular Destinations</a>
+        <a class="nav-link" href="#">Dream Vacations</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02"
             aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -40,56 +42,68 @@
         </div>
     </nav>
 
-    <div class="container">
-        <!-- buttons/links -->
-        <div class="nav-scroller bg-light box-shadow">
-            <nav class="nav nav-underline ">
-                <a class="nav-link " href="#">Hotels</a>
-                <a class="nav-link" href="#">Food</a>
-                <a class="nav-link" href="#">Weather</a>
-            </nav>
-        </div>
-        <!-- Dropdown Form -->
-        <div class="dropdown">
-            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="false">
+    <div class=“dropdown”>
+            <a class=“btn btn-secondary dropdown-toggle” href=“#” role=“button” id=“dropdownMenuLink” data-toggle=“dropdown” aria-haspopup=“true”
+                aria-expanded=“false”>
                 Plan Your Trip!
             </a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-
-                <form class="dropdown-item">
-                    <div class="form-row">
-                        <div class="form-group col-md-5">
-                            <label for="depart-input">Depart</label>
-                            <input type="text" class="form-control" id="depart-input" placeholder="Departure">
-                        </div>
-                        <div class="form-group col-md-5">
-                            <label for="depart-date-input">Depart Date</label>
-                            <input type="date" class="form-control" id="depart-date-input" placeholder="date depart input">
-                        </div>
+            <div class=“dropdown-menu” aria-labelledby=“dropdownMenuLink”>
+ 
+                <form class=“dropdown-item”>
+                    <div class=“container” id=“widget”>
+                        <div data-skyscanner-widget=“SearchWidget”></div>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-5">
-                            <label for="arrival-input">Arrival</label>
-                            <input type="text" class="form-control" id="arrival-input" placeholder="Arrival">
-                        </div>
-                        <div class="form-group col-md-5">
-                            <label for="arrival-date-input">Depart Date</label>
-                            <input type="date" class="form-control" id="arrival-date-input" placeholder="date depart input">
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Search</button>
                 </form>
             </div>
         </div>
+
+
+  
+
+        <div class="container" id="thingie" style="visibility: hidden">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card" style="width: 18rem;">
+                        <!-- Insert Animations Here   <img class="card-img-top" src="..." alt="Card image cap"> -->
+                        <div class="card-body">
+                            <h5 class="card-title"></h5>
+                            <div id="city"></div>
+                            <div id="weather"></div>
+                            <div id="wind"></div>
+                            <div id="humidity"></div>
+                            <div id="temp"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="jumbotron mt-7">
+                            <div id="food-header"></div>
+                        </div>
+
+
+                
+        <div class="container">
+                <div class="row">
+        <!-- This is the div that holds everything class = infoHolder-->
+                                    <div id="food-info"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+         <!-- <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+            </div>
+        </div> -->
         <!-- Food Stuff -->
-        <main role="main">
+        <!--<main role="main">
             <div class="col-sm-8 mx-auto mt-1">
                 <h2 class=" mx-auto" id="destinationTitle">Destination</h2>
             </div>
-            <div class="jumbotron mt-3">
+            <div class="jumbotron mt-3"> -->
                 <!-- This is the div that holds everything class = infoHolder-->
-                <div class="col-sm-8 mx-auto infoHolder">
+             <!--   <div class="col-sm-8 mx-auto infoHolder">
                     <h1>Food</h1>
                     <div class="foodInfo"></div>
                     <!-- <p>
@@ -99,8 +113,15 @@
                         </button> 
                     </p> -->
                 </div>
+
+
+
+
+
             </div>
-        </main>
+
+            </main>
+
         <!-- Weather stuff -->
         <main role=“main”>
             <div class="jumbotron mt-3">
@@ -119,6 +140,7 @@
         </main>
         <!-- This is the Modal -->
         <!-- <section>
+
             <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
@@ -155,6 +177,8 @@
             crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
             crossorigin="anonymous"></script>
+        <script src="https://widgets.skyscanner.net/widget-server/js/loader.js" async></script>
+
         <script src="assets/app.js"></script>
 
 </body>

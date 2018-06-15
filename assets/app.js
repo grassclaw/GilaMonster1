@@ -1,4 +1,5 @@
 // This is where the logic for the app will go.
+
 var map;
 var geoJSON;
 var request;
@@ -7,6 +8,15 @@ var openWeatherMapKey = "166a433c57516f51dfab1f7edaed8413"
 var latStore = 50;
 var longStore = -50;
 
+  $("body").keypress(function (e) {
+  var key = e.which;
+  if(key == 13)  // the enter key code
+   {
+     $(".searchButton").click();
+     return false;  
+   }
+ });
+  
 // Initialize Firebase
 var config = {
   apiKey: "AIzaSyCtKH56VjqALo8SeJdKZn_x-eqpSGbfcgY",
@@ -165,12 +175,13 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 $(".searchButton").on("click", function () {
 
-
+ $("#thingie").css('visibility', 'visible')
   var responseOne;
   var responseTwo;
   var responseThree;
 
   var inputCity = $("#destinationInput").val().trim();
+
 
 
   // First AJAX call takes city from destinationInput...
@@ -206,12 +217,13 @@ $(".searchButton").on("click", function () {
       $(".foodInfo").empty();
 
       // lists all entries found (this can be bad if it's alot so I maxed it at 20)
-      for (var i = 0; i < response.restaurants.length || i < 20; i++) {
-        $(".foodInfo").append("<h3><a href='" + response.restaurants[i].restaurant.url + "'>" + response.restaurants[i].restaurant.name + "</a></h3>");
-        // <a class="nav-link " href="#">Hotels</a>
-        $(".foodInfo").append("<h5>Cusines: <span>" + response.restaurants[i].restaurant.cuisines + "</span></h5>");
-        $(".foodInfo").append("<h5>Rating: <span>" + response.restaurants[i].restaurant.user_rating.aggregate_rating + "</span></h5>");
-        $(".foodInfo").append("<h5>Address: <span>" + response.restaurants[i].restaurant.location.address + "</span></h5>");
+      for (var i = 0; i < response.restaurants.length || i < 10; i++) {
+        $("#food-info").addClass("card", "col-sm-6");
+        $("#food-info").append("<h3><a href='" + response.restaurants[i].restaurant.url + "'>" + response.restaurants[i].restaurant.name + "</a></h3>");
+        $("#food-info").append("<h5>Cusines: <span>" + response.restaurants[i].restaurant.cuisines + "</span></h5>");
+        $("#food-info").append("<h5>Rating: <span>" + response.restaurants[i].restaurant.user_rating.aggregate_rating + "</span></h5>");
+        $("#food-info").append("<h5>Address: <span>" + response.restaurants[i].restaurant.location.address + "</span></h5>");
+        
       }
 
     }).then(function(response){
@@ -237,7 +249,7 @@ $.ajax({
   $("#wind").text("Wind Speed: " + response.wind.speed + " mph");
   $("#humidity").text("Humidity: " + response.main.humidity + " %");
   $("#temp").text("Temperature: " + F_temp + " °F");
-
+  $("#weather").text((response.weather[0].description).toUpperCase());
 
 
   initialize();
