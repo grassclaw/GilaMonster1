@@ -7,6 +7,24 @@ var openWeatherMapKey = "166a433c57516f51dfab1f7edaed8413"
 var latStore = 50;
 var longStore = -50;
 
+// Initialize Firebase
+var config = {
+  apiKey: "AIzaSyCtKH56VjqALo8SeJdKZn_x-eqpSGbfcgY",
+  authDomain: "travel-guide-76ea0.firebaseapp.com",
+  databaseURL: "https://travel-guide-76ea0.firebaseio.com",
+  projectId: "travel-guide-76ea0",
+  storageBucket: "travel-guide-76ea0.appspot.com",
+  messagingSenderId: "611590203730"
+};
+firebase.initializeApp(config);
+
+var database = firebase.database();
+
+var inputCity;
+
+
+
+
 function initialize() {
   var mapOptions = {
     zoom: 5,
@@ -14,33 +32,33 @@ function initialize() {
   };
 
   map = new google.maps.Map(document.getElementById('map-canvas'),
-      mapOptions);
+    mapOptions);
   // Add interaction listeners to make weather requests
   google.maps.event.addListener(map, 'idle', checkIfDataRequested);
 
   // Sets up and populates the info window with details
-  map.data.addListener('click', function(event) {
+  map.data.addListener('click', function (event) {
     infowindow.setContent(
-     "<img src=" + event.feature.getProperty("icon") + ">"
-     + "<br /><strong>" + event.feature.getProperty("city") + "</strong>"
-     + "<br />" + event.feature.getProperty("temperature") + "&deg;C"
-     + "<br />" + event.feature.getProperty("weather")
-     );
+      "<img src=" + event.feature.getProperty("icon") + ">"
+      + "<br /><strong>" + event.feature.getProperty("city") + "</strong>"
+      + "<br />" + event.feature.getProperty("temperature") + "&deg;C"
+      + "<br />" + event.feature.getProperty("weather")
+    );
     infowindow.setOptions({
-        position:{
-          lat: event.latLng.lat(),
-          lng: event.latLng.lng()
-        },
-        pixelOffset: {
-          width: 0,
-          height: -15
-        }
-      });
+      position: {
+        lat: event.latLng.lat(),
+        lng: event.latLng.lng()
+      },
+      pixelOffset: {
+        width: 0,
+        height: -15
+      }
+    });
     infowindow.open(map);
   });
 }
 
-var checkIfDataRequested = function() {
+var checkIfDataRequested = function () {
   // Stop extra requests being sent
   while (gettingData === true) {
     request.abort();
@@ -50,7 +68,7 @@ var checkIfDataRequested = function() {
 };
 
 // Get the coordinates from the Map bounds
-var getCoords = function() {
+var getCoords = function () {
   var bounds = map.getBounds();
   var NE = bounds.getNorthEast();
   var SW = bounds.getSouthWest();
@@ -58,14 +76,14 @@ var getCoords = function() {
 };
 
 // Make the weather request
-var getWeather = function(northLat, eastLng, southLat, westLng) {
+var getWeather = function (northLat, eastLng, southLat, westLng) {
   gettingData = true;
   var requestString = "https://api.openweathermap.org/data/2.5/box/city?bbox="
-                      + westLng + "," + northLat + "," //left top
-                      + eastLng + "," + southLat + "," //right bottom
-                      + map.getZoom()
-                      + "&cluster=yes&format=json"
-                      + "&APPID=" + openWeatherMapKey;
+    + westLng + "," + northLat + "," //left top
+    + eastLng + "," + southLat + "," //right bottom
+    + map.getZoom()
+    + "&cluster=yes&format=json"
+    + "&APPID=" + openWeatherMapKey;
   request = new XMLHttpRequest();
   request.onload = proccessResults;
   request.open("get", requestString, true);
@@ -73,15 +91,15 @@ var getWeather = function(northLat, eastLng, southLat, westLng) {
 };
 
 // Take the JSON results and proccess them
-var proccessResults = function() {
+var proccessResults = function () {
   console.log(this);
   var results = JSON.parse(this.responseText);
   if (results.list.length > 0) {
-      resetData();
-      for (var i = 0; i < results.list.length; i++) {
-        geoJSON.features.push(jsonToGeoJson(results.list[i]));
-      }
-      drawIcons(geoJSON);
+    resetData();
+    for (var i = 0; i < results.list.length; i++) {
+      geoJSON.features.push(jsonToGeoJson(results.list[i]));
+    }
+    drawIcons(geoJSON);
   }
 };
 
@@ -102,8 +120,8 @@ var jsonToGeoJson = function (weatherItem) {
       windSpeed: weatherItem.wind.speed,
       windDegrees: weatherItem.wind.deg,
       windGust: weatherItem.wind.gust,
-      icon: "http://openweathermap.org/img/w/"
-            + weatherItem.weather[0].icon  + ".png",
+      icon: "https://openweathermap.org/img/w/"
+        + weatherItem.weather[0].icon + ".png",
       coordinates: [weatherItem.coord.Lon, weatherItem.coord.Lat]
     },
     geometry: {
@@ -112,7 +130,7 @@ var jsonToGeoJson = function (weatherItem) {
     }
   };
   // Set the custom marker icon
-  map.data.setStyle(function(feature) {
+  map.data.setStyle(function (feature) {
     return {
       icon: {
         url: feature.getProperty('icon'),
@@ -127,9 +145,9 @@ var jsonToGeoJson = function (weatherItem) {
 
 // Add the markers to the map
 var drawIcons = function (weather) {
-   map.data.addGeoJson(geoJSON);
-   // Set the flag to finished
-   gettingData = false;
+  map.data.addGeoJson(geoJSON);
+  // Set the flag to finished
+  gettingData = false;
 };
 
 // Clear data layer and geoJSON
@@ -138,7 +156,7 @@ var resetData = function () {
     type: "FeatureCollection",
     features: []
   };
-  map.data.forEach(function(feature) {
+  map.data.forEach(function (feature) {
     map.data.remove(feature);
   });
 };
@@ -147,7 +165,13 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 $(".searchButton").on("click", function () {
 
+
+  var responseOne;
+  var responseTwo;
+  var responseThree;
+
   var inputCity = $("#destinationInput").val().trim();
+
 
   // First AJAX call takes city from destinationInput...
   $.ajax({
@@ -161,7 +185,7 @@ $(".searchButton").on("click", function () {
     },  // This inserts the api key into the HTTP header
     success: function (response) { console.log(response) }
   }).then(function (response) {
-
+    responseOne = response;
     // Finds city ID in JSON and stores it in a variable...
     var cityId = response.location_suggestions[0].id;
 
@@ -177,7 +201,7 @@ $(".searchButton").on("click", function () {
       },  // This inserts the api key into the HTTP header
       success: function (response) { console.log(response) }
     }).then(function (response) {
-
+      responseTwo = response;
       // clear before printing new search
       $(".foodInfo").empty();
 
@@ -190,35 +214,66 @@ $(".searchButton").on("click", function () {
         $(".foodInfo").append("<h5>Address: <span>" + response.restaurants[i].restaurant.location.address + "</span></h5>");
       }
 
+    }).then(function(response){
+
+// Weather API call
+var APIweather = "&APPID=166a433c57516f51dfab1f7edaed8413";
+$.ajax({
+  url: "https://api.openweathermap.org/data/2.5/weather?q=" + inputCity + APIweather,
+  dataType: 'json',
+  async: true,
+  method: "GET"
+
+}).then(function (response) {
+  console.log(response)
+  responseThree = response;
+  latStore = response.coord.lat;
+  longStore = response.coord.lon;
+  // 9/5(K - 273) + 32 convert farenheight to Kelvin.
+  var K_temp = response.main.temp;
+  var F_temp = (9 * (K_temp - 273.15) / 5 + 32).toFixed(1);
+
+  $("#city").html("<h1>" + response.name + " Weather Details</h1>");
+  $("#wind").text("Wind Speed: " + response.wind.speed + " mph");
+  $("#humidity").text("Humidity: " + response.main.humidity + " %");
+  $("#temp").text("Temperature: " + F_temp + " °F");
+
+
+
+  initialize();
+  console.log(responseOne)
+
+  // Firebase object...
+  var newCity = {
+    inputCity: inputCity,
+    responseOne: JSON.stringify(responseOne),
+    responseTwo: JSON.stringify(responseTwo),
+    responseThree: JSON.stringify(responseThree)
+
+  };
+
+  database.ref().push(newCity);
+  console.log("DATABASE")
+  console.log(newCity);
+});
+
+
+
+
+
+
     })
 
+
+
+
   });
 
-  // Weather API call
-  var APIweather = "&APPID=166a433c57516f51dfab1f7edaed8413";
-  $.ajax({
-    url: "https://api.openweathermap.org/data/2.5/weather?q=" + inputCity + APIweather,
-    dataType: 'json',
-    async: true,
-    method: "GET"
-
-  }).then(function (response) {
-    console.log(response)
-    latStore = response.coord.lat;
-    longStore = response.coord.lon;
-    // 9/5(K - 273) + 32 convert farenheight to Kelvin.
-    var K_temp = response.main.temp;
-    var F_temp = (9 * (K_temp - 273.15) / 5 + 32).toFixed(1);
-
-    $("#city").html("<h1>" + response.name + " Weather Details</h1>");
-    $("#wind").text("Wind Speed: " + response.wind.speed + " mph");
-    $("#humidity").text("Humidity: " + response.main.humidity + " %");
-    $("#temp").text("Temperature: " + F_temp + " °F");
+  
 
 
 
-    initialize();
-  });
+
 
 });
 
