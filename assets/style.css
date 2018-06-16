@@ -20,3 +20,51 @@
     width: 500px;
     height: 500px;
   }
+
+
+  #destinationInput {
+    width: 85%;
+    margin-left: 60px;
+    margin-right: 50px;
+}
+
+
+
+.nav-link {
+    color: white;
+    
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+}
+
+.nav-link:hover {
+    color: gray;
+}
+
+#food-header {
+    width: 100%;
+    text-align: center;
+}
+
+
+.dropdown-menu{
+    width:60%;
+}
+
+#map-canvas {
+    width: 500px;
+    height: 500px;
+  }
+
+  #sprite-1 {
+      position: absolute,
+
+  }
+
+  #sprite-2 {
+      position: absolute;
+      right: 450px;
+  }
+
+#box-1 {
+    width: 100%;
+}

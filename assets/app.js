@@ -1,5 +1,11 @@
 // This is where the logic for the app will go.
 
+
+TweenMax.to("#sprite-1", 4, {x:450});
+
+
+
+
 var map;
 var geoJSON;
 var request;
@@ -64,6 +70,18 @@ firebase.auth().signOut().then(function() {
   // An error happened.
 });*/
 
+
+
+
+$(".searchButton").on("click", function () {
+
+ $("#thingie").css('visibility', 'visible')
+  var responseOne;
+  var responseTwo;
+  var responseThree;
+
+  var inputCity = $("#destinationInput").val().trim();
+  $("#food-header").html("<h2>Dining Options in </h2>" + inputCity)
 
 
 
@@ -204,15 +222,6 @@ var resetData = function () {
 };
 
 google.maps.event.addDomListener(window, 'load', initialize);
-
-$(".searchButton").on("click", function () {
-
- $("#thingie").css('visibility', 'visible')
-  var responseOne;
-  var responseTwo;
-  var responseThree;
-
-  var inputCity = $("#destinationInput").val().trim();
 
 
 
