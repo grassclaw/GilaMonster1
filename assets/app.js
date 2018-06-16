@@ -8,6 +8,8 @@ var openWeatherMapKey = "166a433c57516f51dfab1f7edaed8413"
 var latStore = 50;
 var longStore = -50;
 var inputCity;
+var email;
+var password;
 
   $("body").keypress(function (e) {
   var key = e.which;
@@ -31,16 +33,24 @@ firebase.initializeApp(config);
 
 var database = firebase.database();
 
-// Create a new user
-firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-  // Handle Errors here.
-  var errorCode = error.code;
-  var errorMessage = error.message;
-  // ...
+
+$("#createAccount").on("click", function(){
+  email = $("#emailInput").val();
+  password = $("#passwordInput").val();
+  console.log(email, password);
+  // Create a new user
+  firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    // ...
+  });
 });
 
+
+
 // Previous user signs in
-firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+/*firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
   // Handle Errors here.
   var errorCode = error.code;
   var errorMessage = error.message;
@@ -52,7 +62,7 @@ firebase.auth().signOut().then(function() {
   // Sign-out successful.
 }).catch(function(error) {
   // An error happened.
-});
+});*/
 
 
 
@@ -236,7 +246,7 @@ $(".searchButton").on("click", function () {
     }).then(function (response) {
       responseTwo = response;
       // clear before printing new search
-      $(".foodInfo").empty();
+      $("#food-info").empty();
 
       // lists all entries found (this can be bad if it's alot so I maxed it at 20)
       for (var i = 0; i < response.restaurants.length || i < 10; i++) {
