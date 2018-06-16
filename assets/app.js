@@ -7,17 +7,19 @@ var gettingData = false;
 var openWeatherMapKey = "166a433c57516f51dfab1f7edaed8413"
 var latStore = 50;
 var longStore = -50;
+var inputCity; //This will be the user input for the city
 
-  $("body").keypress(function (e) {
+// This allows for user to execute on "enter"
+$("body").keypress(function (e) {
   var key = e.which;
   if(key == 13)  // the enter key code
    {
      $(".searchButton").click();
      return false;  
    }
- });
+});
   
-// Initialize Firebase
+// Initialize Firebase *****************
 var config = {
   apiKey: "AIzaSyCtKH56VjqALo8SeJdKZn_x-eqpSGbfcgY",
   authDomain: "travel-guide-76ea0.firebaseapp.com",
@@ -30,17 +32,16 @@ firebase.initializeApp(config);
 
 var database = firebase.database();
 
-var inputCity;
+// END Initialize Firebase *****************
 
-
-
-
+// Create map object and determines zoom etc.
 function initialize() {
   var mapOptions = {
     zoom: 5,
     center: new google.maps.LatLng(latStore, longStore)
   };
 
+  //targets map canvas on the HTML
   map = new google.maps.Map(document.getElementById('map-canvas'),
     mapOptions);
   // Add interaction listeners to make weather requests
@@ -68,6 +69,7 @@ function initialize() {
   });
 }
 
+// ************************
 var checkIfDataRequested = function () {
   // Stop extra requests being sent
   while (gettingData === true) {
@@ -77,7 +79,7 @@ var checkIfDataRequested = function () {
   getCoords();
 };
 
-// Get the coordinates from the Map bounds
+// Get the coordinates from the Map bounds - For MAP and AUTOCOMPLETE
 var getCoords = function () {
   var bounds = map.getBounds();
   var NE = bounds.getNorthEast();
@@ -171,18 +173,85 @@ var resetData = function () {
   });
 };
 
+// Possibly for Autocomplete also
 google.maps.event.addDomListener(window, 'load', initialize);
 
+// ****************************************
+// **************************************
+
+
+var placeSearch, autocomplete;
+var componentForm = {
+  street_number: 'short_name',
+  route: 'long_name',
+  locality: 'long_name',
+  administrative_area_level_1: 'short_name',
+  country: 'long_name',
+  postal_code: 'short_name'
+};
+
+function initAutocomplete() {
+  // Create the autocomplete object, restricting the search to geographical
+  // location types.
+  autocomplete = new google.maps.places.Autocomplete(
+      /* @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
+      {types: ['geocode']});
+
+  // When the user selects an address from the dropdown, populate the address
+  // fields in the form.
+  autocomplete.addListener('place_changed', fillInAddress);
+}
+
+function fillInAddress() {
+  // Get the place details from the autocomplete object.
+  var place = autocomplete.getPlace();
+
+  for (var component in componentForm) {
+    document.getElementById(component).value = '';
+    document.getElementById(component).disabled = false;
+  }
+
+  // Get each component of the address from the place details
+  // and fill the corresponding field on the form.
+  for (var i = 0; i < place.address_components.length; i++) {
+    var addressType = place.address_components[i].types[0];
+    if (componentForm[addressType]) {
+      var val = place.address_components[i][componentForm[addressType]];
+      document.getElementById(addressType).value = val;
+    }
+  }
+}
+
+// Bias the autocomplete object to the user's geographical location,
+// as supplied by the browser's 'navigator.geolocation' object.
+function geolocate() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var geolocation = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      var circle = new google.maps.Circle({
+        center: geolocation,
+        radius: position.coords.accuracy
+      });
+      autocomplete.setBounds(circle.getBounds());
+    });
+  }
+}
+
+// **************************************
+// **************************************
+
+// Starts events
 $(".searchButton").on("click", function () {
 
  $("#thingie").css('visibility', 'visible')
-  var responseOne;
-  var responseTwo;
-  var responseThree;
+  var responseOne; //responses from ajax calls and variables - ZOMATO city ID
+  var responseTwo; //Zomato restaurant info
+  var responseThree; //Open weather id
 
   var inputCity = $("#destinationInput").val().trim();
-
-
 
   // First AJAX call takes city from destinationInput...
   $.ajax({
