@@ -17,6 +17,27 @@
 </head>
 
 <!-- BODY -->
+<br>
+<br>
+<div class="row">
+    <img class="sprites" id="sprite-1" src="assets/images/surferman.png" />
+    <img class="sprites" id="sprite-2" src="assets/images/palmtreedude.png" />
+</div>
+
+<br>
+<br>
+<form class="form-inline my-1 my-md-0">
+    <input id="destinationInput" class="form-control" type="text" placeholder="Enter Your Destination">
+    <a id="destinationSubmit" href="#">
+        <img class="searchButton" id="search" src="assets/images/find_search.png">
+    </a>
+</form>
+
+
+
+
+<div class="container" id="thingie" style="visibility: hidden">
+
 
 <body class="bg-light">
     <nav class="navbar navbar-expand navbar-dark bg-dark">
@@ -55,12 +76,6 @@
                     </form>
                 </div>
             </div>
-            <form class="form-inline my-1 my-md-0">
-                <input id="destinationInput" class="form-control" type="text" placeholder="Enter Your Destination">
-                <a id="destinationSubmit" href="#">
-                    <img class="ml-2 searchButton" src="assets/images/searchicon.png">
-                </a>
-            </form>
         </div>
     </nav>
 
@@ -78,14 +93,9 @@
             </form>
         </div>
     </div>
+  
 
 
-
-
-
-
-
-    <div class="container" id="thingie" style="visibility: hidden">
         <div class="row">
             <div class="col-sm-6">
                 <div class="card" style="width: 18rem;">
@@ -100,22 +110,32 @@
                     </div>
                 </div>
             </div>
+
             <div class="col-sm-6">
-                <div class="row">
-                    <div class="jumbotron mt-7">
-                        <div id="food-header"></div>
-                    </div>
 
-
-
-                    <div class="container">
-                        <div class="row">
-                            <!-- This is the div that holds everything class = infoHolder-->
-                            <div id="food-info"></div>
+                <main role=“main”>
+                    <div class="jumbotron">
+                        <div id="box-1">
+                            <div id="map-canvas"></div>
                         </div>
+                </main>
+
+            </div>
+
+     <div class="container">
+
+                    <div class="row">
+                         <div class="jumbotron" id= "food-header">
                     </div>
+                    </div>
+                    <div id="food-info"></div>
+                </div>
                 </div>
             </div>
+        </div>
+
+
+
 
             <!-- <button type="submit" class="btn btn-primary">Search</button>
                 </form>
@@ -197,6 +217,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
 
     <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.1/TweenMax.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
         crossorigin="anonymous"></script>
