@@ -7,6 +7,7 @@ var gettingData = false;
 var openWeatherMapKey = "166a433c57516f51dfab1f7edaed8413"
 var latStore = 50;
 var longStore = -50;
+var inputCity;
 
   $("body").keypress(function (e) {
   var key = e.which;
@@ -30,7 +31,28 @@ firebase.initializeApp(config);
 
 var database = firebase.database();
 
-var inputCity;
+// Create a new user
+firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  // ...
+});
+
+// Previous user signs in
+firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  // ...
+});
+
+// User sign out
+firebase.auth().signOut().then(function() {
+  // Sign-out successful.
+}).catch(function(error) {
+  // An error happened.
+});
 
 
 
