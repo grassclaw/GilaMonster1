@@ -81,8 +81,8 @@ $(".searchButton").on("click", function () {
   var responseThree;
 
   var inputCity = $("#destinationInput").val().trim();
-  $("#food-header").html("<h2>Dining Options in </h2>" + inputCity)
-
+  $("#food-header").html("<h4>Dining in "  + inputCity + "</h4>")
+  $("#title-header").html("<h4> "  + inputCity + "</h4>")
 
 
 function initialize() {
@@ -286,11 +286,13 @@ $.ajax({
   var K_temp = response.main.temp;
   var F_temp = (9 * (K_temp - 273.15) / 5 + 32).toFixed(1);
 
-  $("#city").html("<h1>" + response.name + " Weather Details</h1>");
+  $("#city").html("<h4>" + response.name + " Weather Details</h4><hr>");
   $("#wind").text("Wind Speed: " + response.wind.speed + " mph");
   $("#humidity").text("Humidity: " + response.main.humidity + " %");
   $("#temp").text("Temperature: " + F_temp + " °F");
   $("#weather").text((response.weather[0].description).toUpperCase());
+ 
+  
 
 
   initialize();
