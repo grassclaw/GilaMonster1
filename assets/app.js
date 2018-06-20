@@ -270,11 +270,13 @@ $("body").keypress(function (e) {
 
 $(".searchButton").on("click", function () {
 
-  alert(inputCity);
   $("#thingie").css('visibility', 'visible')
   var responseOne;
   var responseTwo;
   var responseThree;
+  
+  $("#food-header").html("<h4>Dining in "  + inputCity + "</h4>")
+  $("#title-header").html("<h4> "  + inputCity + "</h4>")
 
   // First AJAX call takes city from destinationInput...
   $.ajax({
