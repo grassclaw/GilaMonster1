@@ -1,3 +1,4 @@
+
 .nav-link {
     color: white;
     
@@ -9,9 +10,11 @@
 }
 
 
+
 .bg-white1{
     background-color: rgba(255, 255, 255, 0.9) !important;
 }
+
 
 .dropdown-menu{
     width:65%;
@@ -21,6 +24,7 @@
     width: 500px;
     height: 500px;
   }
+
 
 
   #destinationInput,#locationField  {
@@ -64,14 +68,24 @@
 
   }
 
+
   #sprite-2 {
-      position: absolute;
-      right: 450px;
+      right: 42%;
   }
+
+
+
+  #sprite-3 {
+      height: 300px;
+      width: 500px;
+      z-index: -1;
+}
+
 
 #box-1 {
     width: 100%;
 }
+
 
 .bg { 
     /* The image used */
@@ -117,8 +131,6 @@ box-shadow:         7px 6px 14px -2px rgba(62, 50, 50, 0.76);
 
 .bg-dark {
     background-color:  rgba(255, 87, 34, 0.9) !important;
-}
-
 
 
 .dropdown-menu {
@@ -268,3 +280,4 @@ box-shadow:         7px 6px 14px -2px rgba(62, 50, 50, 0.76);
         width: 300px;
         height: 50px;
       } */
+
