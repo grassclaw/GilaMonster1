@@ -1,7 +1,7 @@
 // This is where the logic for the app will go.
 
 
-TweenMax.to("#sprite-1", 4, {x:450});
+TweenMax.to("#sprite-1", 4, { x: 450 });
 
 
 
@@ -16,16 +16,8 @@ var longStore = -50;
 var inputCity;
 var email;
 var password;
+var inputCity
 
-  $("body").keypress(function (e) {
-  var key = e.which;
-  if(key == 13)  // the enter key code
-   {
-     $(".searchButton").click();
-     return false;  
-   }
- });
-  
 // Initialize Firebase
 var config = {
   apiKey: "AIzaSyCtKH56VjqALo8SeJdKZn_x-eqpSGbfcgY",
@@ -40,20 +32,18 @@ firebase.initializeApp(config);
 var database = firebase.database();
 
 
-$("#createAccount").on("click", function(){
+$("#createAccount").on("click", function () {
   email = $("#emailInput").val();
   password = $("#passwordInput").val();
   console.log(email, password);
   // Create a new user
-  firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+  firebase.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
     // Handle Errors here.
     var errorCode = error.code;
     var errorMessage = error.message;
     // ...
   });
 });
-
-
 
 // Previous user signs in
 /*firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
@@ -62,7 +52,6 @@ $("#createAccount").on("click", function(){
   var errorMessage = error.message;
   // ...
 });
-
 // User sign out
 firebase.auth().signOut().then(function() {
   // Sign-out successful.
@@ -70,20 +59,8 @@ firebase.auth().signOut().then(function() {
   // An error happened.
 });*/
 
-
-
-
-$(".searchButton").on("click", function () {
-
- $("#thingie").css('visibility', 'visible')
-  var responseOne;
-  var responseTwo;
-  var responseThree;
-
-  var inputCity = $("#destinationInput").val().trim();
-  $("#food-header").html("<h2>Dining Options in </h2>" + inputCity)
-
-
+// var inputCity = $("#destinationInput").val().trim();
+// $("#food-header").html("<h2>Dining Options in </h2>" + inputCity)
 
 function initialize() {
   var mapOptions = {
@@ -198,7 +175,6 @@ var jsonToGeoJson = function (weatherItem) {
       }
     };
   });
-
   // returns object
   return feature;
 };
@@ -220,10 +196,85 @@ var resetData = function () {
     map.data.remove(feature);
   });
 };
-
+// Possibly for Autocomplete also
 google.maps.event.addDomListener(window, 'load', initialize);
+// ****************************************
+// Google Autocomplete Section
+// **************************************
+var placeSearch, autocomplete;
+var componentForm = {
+  street_number: 'short_name',
+  route: 'long_name',
+  locality: 'long_name',
+  administrative_area_level_1: 'short_name',
+  country: 'long_name',
+  postal_code: 'short_name'
+};
 
+function initAutocomplete() {
+  // Create the autocomplete object, restricting the search to geographical
+  // location types.
+  autocomplete = new google.maps.places.Autocomplete(
+      /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
+    { types: ['geocode'] });
+  // When the user selects an address from the dropdown, populate the address
+  // fields in the form.
+  autocomplete.addListener('place_changed', fillInAddress);
+}
 
+function fillInAddress() {
+  // Get the place details from the autocomplete object.
+  var place = autocomplete.getPlace();
+
+  // Get each component of the address from the place details
+  for (var i = 0; i < place.address_components.length; i++) {
+    // This actually only grabs the city name....We're working on it
+    var addressType = place.address_components[i].types[0];
+    if (addressType == "locality") {
+      inputCity = place.address_components[i][componentForm[addressType]];
+      console.log(inputCity);
+    }
+  }
+}
+
+// Bias the autocomplete object to the user's geographical location,
+// as supplied by the browser's 'navigator.geolocation' object.
+function geolocate() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      var geolocation = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      var circle = new google.maps.Circle({
+        center: geolocation,
+        radius: position.coords.accuracy
+      });
+      autocomplete.setBounds(circle.getBounds());
+    });
+  }
+}
+
+// **************************************
+// **************************************
+
+// Allows for enter key press
+$("body").keypress(function (e) {
+  var key = e.which;
+  if (key == 13)  // the enter key code
+  {
+    $(".searchButton").click();
+    return false;
+  }
+});
+
+$(".searchButton").on("click", function () {
+
+  alert(inputCity);
+  $("#thingie").css('visibility', 'visible')
+  var responseOne;
+  var responseTwo;
+  var responseThree;
 
   // First AJAX call takes city from destinationInput...
   $.ajax({
@@ -264,69 +315,46 @@ google.maps.event.addDomListener(window, 'load', initialize);
         $("#food-info").append("<h5>Cusines: <span>" + response.restaurants[i].restaurant.cuisines + "</span></h5>");
         $("#food-info").append("<h5>Rating: <span>" + response.restaurants[i].restaurant.user_rating.aggregate_rating + "</span></h5>");
         $("#food-info").append("<h5>Address: <span>" + response.restaurants[i].restaurant.location.address + "</span></h5>");
-        
       }
 
-    }).then(function(response){
+      // Weather API call
+      var APIweather = "&APPID=166a433c57516f51dfab1f7edaed8413";
+      $.ajax({
+        url: "https://api.openweathermap.org/data/2.5/weather?q=" + inputCity + APIweather,
+        dataType: 'json',
+        async: true,
+        method: "GET"
 
-// Weather API call
-var APIweather = "&APPID=166a433c57516f51dfab1f7edaed8413";
-$.ajax({
-  url: "https://api.openweathermap.org/data/2.5/weather?q=" + inputCity + APIweather,
-  dataType: 'json',
-  async: true,
-  method: "GET"
+      }).then(function (response) {
+        console.log(response)
+        responseThree = response;
+        latStore = response.coord.lat;
+        longStore = response.coord.lon;
+        // 9/5(K - 273) + 32 convert farenheight to Kelvin.
+        var K_temp = response.main.temp;
+        var F_temp = (9 * (K_temp - 273.15) / 5 + 32).toFixed(1);
 
-}).then(function (response) {
-  console.log(response)
-  responseThree = response;
-  latStore = response.coord.lat;
-  longStore = response.coord.lon;
-  // 9/5(K - 273) + 32 convert farenheight to Kelvin.
-  var K_temp = response.main.temp;
-  var F_temp = (9 * (K_temp - 273.15) / 5 + 32).toFixed(1);
+        $("#city").html("<h1>" + response.name + " Weather Details</h1>");
+        $("#wind").text("Wind Speed: " + response.wind.speed + " mph");
+        $("#humidity").text("Humidity: " + response.main.humidity + " %");
+        $("#temp").text("Temperature: " + F_temp + " °F");
+        $("#weather").text((response.weather[0].description).toUpperCase());
 
-  $("#city").html("<h1>" + response.name + " Weather Details</h1>");
-  $("#wind").text("Wind Speed: " + response.wind.speed + " mph");
-  $("#humidity").text("Humidity: " + response.main.humidity + " %");
-  $("#temp").text("Temperature: " + F_temp + " °F");
-  $("#weather").text((response.weather[0].description).toUpperCase());
+        initialize();
+        console.log(responseOne)
 
-
-  initialize();
-  console.log(responseOne)
-
-  // Firebase object...
-  var newCity = {
-    inputCity: inputCity,
-    responseOne: JSON.stringify(responseOne),
-    responseTwo: JSON.stringify(responseTwo),
-    responseThree: JSON.stringify(responseThree)
-
-  };
-
-  database.ref().push(newCity);
-  console.log("DATABASE")
-  console.log(newCity);
-});
-
-
-
-
-
-
+        // Firebase object...
+        var newCity = {
+          inputCity: inputCity,
+          responseOne: JSON.stringify(responseOne),
+          responseTwo: JSON.stringify(responseTwo),
+          responseThree: JSON.stringify(responseThree)
+        };
+        database.ref().push(newCity);
+        console.log("DATABASE")
+        console.log(newCity);
+      });
     })
-
-
-
-
   });
-
-  
-
-
-
-
-
 });
 
