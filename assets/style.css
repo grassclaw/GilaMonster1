@@ -1,4 +1,3 @@
-
 .nav-link {
     color: white;
     
@@ -9,40 +8,20 @@
     color: gray;
 }
 
-
-
 .bg-white1{
     background-color: rgba(255, 255, 255, 0.9) !important;
-}
-
-
-.dropdown-menu{
-    width:65%;
 }
 
 #map-canvas {
     width: 500px;
     height: 500px;
-  }
+}
 
-
-
-  #destinationInput,#locationField  {
+#destinationInput,#locationField {
     width: 85%;
     margin-left: 60px;
     margin-right: 50px; 
-}
-
-
-.nav-link {
-    color: white;
-    
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
-}
-
-.nav-link:hover {
-    color: rgb(241, 240, 240);
-}
+}   
 
 .bg-lightnav{
    background-color: rgba(0,0,0,.8) !important;
@@ -53,40 +32,29 @@
     text-align: center;
 }
 
-
-.dropdown-menu{
-    width:60%;
+#sprite-1 {
+    position: relative;
+    top: 0px;
 }
-
-#map-canvas {
+#sprite-2 {
+    position: absolute;
+    right: 35%;
+}
+#sprite-3 {
+    position: fixed;
+    left: 60%;
+    top: -1px;
+    height: 300px;
     width: 500px;
-    height: 500px;
-  }
-
-  #sprite-1 {
-      position: absolute,
-
-  }
-
-
-  #sprite-2 {
-      right: 42%;
-  }
-
-
-
-  #sprite-3 {
-      height: 300px;
-      width: 500px;
-      z-index: -1;
+    z-index: -1;
 }
-
 
 #box-1 {
     width: 100%;
 }
-
-
+html {
+    max-width: 1265px;
+}
 .bg { 
     /* The image used */
     background-image: url("images/beach.jpg") ;
@@ -131,9 +99,10 @@ box-shadow:         7px 6px 14px -2px rgba(62, 50, 50, 0.76);
 
 .bg-dark {
     background-color:  rgba(255, 87, 34, 0.9) !important;
-
+}
 
 .dropdown-menu {
+    width:65%;
     position: absolute;
     top: 100%;
     left: 0;
@@ -204,80 +173,13 @@ box-shadow:         7px 6px 14px -2px rgba(62, 50, 50, 0.76);
   .searchButton{
     float:right;
   }
-/* .container-4{
-	overflow: hidden;
-	width: 300px;
-  vertical-align: middle;
-  white-space: nowrap;
- 
+  .branding-1{
+    font-family: 'Shrikhand', cursive;
+    text-align: center;
+    font-size: 70px;
 }
-.container-4 input#search{
-  width: 300px;
-  height: 50px;
-  background: #2b303b;
-  border: none;
-  font-size: 10pt;
-  float: left;
-	color: #fff;
-  padding-left: 15px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  
-  -webkit-transition: all .55s ease;
-  -moz-transition: all .55s ease;
-  -ms-transition: all .55s ease;
-  -o-transition: all .55s ease;
-  transition: all .55s ease;
+.branding-2{
+    font-family: 'Shrikhand', cursive;
+    text-align: center;
+    font-size: 30px;
 }
-
-.container-4 input#search::-webkit-input-placeholder {
-   color: #65737e;
-}
-.container-4 input#search:-moz-placeholder { 
-   color: #65737e;  
-}
-.container-4 input#search::-moz-placeholder {  
-   color: #65737e;  
-}
-.container-4 input#search:-ms-input-placeholder {  
-   color: #65737e;  
-}
-
-.container-4 button.icon{
-	-webkit-border-top-right-radius: 5px;
-  -webkit-border-bottom-right-radius: 5px;
-  -moz-border-radius-topright: 5px;
-  -moz-border-radius-bottomright: 5px;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-  border: none;
-  background: #232833;
-  height: 50px;
-  width: 50px;
-  color: #4f5b66;
-  opacity: 0;
-  font-size: 10pt;
-  -webkit-transition: all .55s ease;
-  -moz-transition: all .55s ease;
-  -ms-transition: all .55s ease;
-  -o-transition: all .55s ease;
-  transition: all .55s ease;
-}
-
-	.container-4 input#search:focus, .container-4 input#search:active{
-    outline:none; 
-	}
-	
-
-  .container-4:hover button.icon, .container-4:active button.icon, .container-4:focus button.icon{
-    outline:none;
-    opacity: 1;
-    margin-left: -50px;
-  }
-    .search{
-        margin:  auto;
-        width: 300px;
-        height: 50px;
-      } */
-
